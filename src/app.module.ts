@@ -1,10 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { ChatModule } from './chat/chat.module';
+import { ConfigModule } from '@nestjs/config'; // importing for use of .env variables
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [ConfigModule.forRoot(), ChatModule], //setting to accept .env variables and Chat Module endpoint
 })
 export class AppModule {}

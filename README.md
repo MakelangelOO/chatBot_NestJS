@@ -24,7 +24,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Simple API endpoint for bot chat with [Nest](https://github.com/nestjs/nest) framework  and TypeScript.
 
 ## Project setup
 
@@ -45,42 +45,59 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
+## Resources And Start Process
 
-```bash
-# unit tests
-$ npm run test
+For this project it's need necessary to consider these points:
 
-# e2e tests
-$ npm run test:e2e
+1. It's important not to delete a csv file in the path 'src/resource' in the root directory. this is important for the API execution.
+1. For start process considere the next steps:
+    - execute the command in the Project setup section
+    - create an .env file in the root directory with an OPEN_EXCHANGE_API_KEY varibla that contain the access api key for Open Exchenge Rates API and a second variable OPEN_API_KEY for the access api pey for OpenAI chat completion API
+    - If you need to define a specific port to start the project, you can specify a PORT variable in .env file. By defualt the application listens for this variable.
+    -Now you can run one of the commands in the Compile and run the Project section, all this in a terminal in the root directory.
 
-# test coverage
-$ npm run test:cov
-```
+## Execution of Endpoints
+when the application is running you can use any type of method preferred by you to make the request to the following enpoints (this only abailible in localhost enviroment):
 
-## Resources
+- **endpoint** `API Documentation`
 
-Check out a few resources that may come in handy when working with NestJS:
+    **description:** This endpoint allows you to view more specific documentation of this API in the Swagger tecnology and can run endpoints in these visual interfaces.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+    **Request Example with CURL:**
+    ```bash
+    curl -x GET "http://localhost:3000"
+    ```
 
-## Support
+- **endpoint** `Chat with Bot`
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+    **description:** This endpoint enables communication with the ai chat bot and allows different types of responses to be obtained. For this OpenAi Chat Completion API is used.
 
-## Stay in touch
+    **Query params:**
+    | Nombre     | Tipo   | Requerido | Descripción                           |
+    |------------|--------|-----------|---------------------------------------|
+    | `message` | String | Yes        | This message is the request sent by the user to OpenAi.    |
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+    **Request Example with CURL:**
+    ```bash
+    curl -x POST "http://localhost:3000/chat" \
+    -H "Content-Type: application/json" \
+    -d '{"message": "I am looking for a phone"}'
+    ```
 
-## License
+- **endpoint** `test searchProducts`
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+    **description:** This endpoint enables a test to search for products in the csv file. By default the method uses 'Phone' to search for matches.
+
+    **Request Example with CURL:**
+    ```bash
+    curl -x POST "http://localhost:3000/chat/searchProducts"
+    ```
+
+- **endpoint** `test convertCurrencies`
+
+    **description:** This endpoint allows a test to change values to other exchange rates. By default the method uses twelve dollars and changes this value to the Colombian rate. For this Open Exchange Rates API is used.
+
+    **Request Example with CURL:**
+    ```bash
+    curl -x POST "http://localhost:3000/chat/convertCurrencies"
+    ```
