@@ -17,7 +17,7 @@ export class ChatService {
   async interactWithChatbot(query: Message): Promise<string> { // this method is controlling the interaccion with the OpenAi for get the result
     
     const response = await this.openai.chat.completions.create({//creating a OpenAi peticion
-      model: 'gpt-3.5-turbo-instruct', // the model of the ia to be used is indicated
+      model: 'gpt-4o-mini', // the model of the ia to be used is indicated
       messages: [{ role: 'user', content: query.message}],// set the initial user message for ai model
       tools: [ // this array sends the available methods so that the model can send a response
         {
